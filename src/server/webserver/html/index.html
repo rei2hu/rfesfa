@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+  <script defer src="/arch_script"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+      background: #000;
+    }
+    #scrollable {
+      position: fixed;
+      bottom: 10px;
+      left: 10%;
+      background-color: #111;
+      width: 80%;
+      margin: auto;
+      overflow-x: auto;
+      white-space: nowrap;
+      border-radius: 12px;
+    }
+    #main {
+      margin-top: 10px;
+      padding-bottom: 5px;
+      width: 75%;
+      height: calc(100% - 150px - 128px);
+      margin-left: auto;
+      margin-right: auto;
+      overflow-y: hidden;
+    }
+    .choice {
+      background: #4000ff;
+      margin: 5px;
+      border-radius: 25px;
+      border: 0.1rem outset #4000ff;
+      cursor: pointer;
+    }
+    #help {
+      cursor: pointer;
+    }
+    .channelTile,
+    .modal-content {
+      float: left;
+      background: linear-gradient(black, #696969);
+      color: #fff;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 0.5rem 0.5rem #111;
+    }
+    .channelTile {
+      height: 150px;
+      width: 150px;
+      text-align: center;
+    }
+    .webhookInput {
+      background: black;
+      color: white;
+      margin-bottom: 5px;
+    }
+    #cbBox {
+      padding: 10px;
+    }
+    #bottomright {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+    }
+    #leftPanel,
+    #rightPanel {
+      padding: 5px;
+    }
+    #leftPanel {
+      width: 69%;
+      float: left;
+      height: 100%;
+      overflow-y: auto;
+    }
+    #rightPanel {
+      margin: 5px;
+      float: right;
+      width: calc(31% - 10px);
+    }
+    .pushTitle {
+      color: white;
+      padding-bottom: 0.8rem;
+    }
+    .pushCheckbox {
+      color: white;
+      font-size: 1rem;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="modal" id="md">
+    <div class="modal-background" id="mdbg"></div>
+    <div class="modal-content">
+      <article class="message">
+        <div class="message-header">
+          <p>Instructions</p>
+        </div>
+        <div class="message-body">
+          <ol>
+            <li>Connect your Discord account</li>
+            <li>Wait for servers to get loaded</li>
+            <li>Click a server icon to configure the server</li>
+            <li>Drag and drop purple bars to configure channels</li>
+            <li>Paste in a webhook url and select what events you want to be updated with</li>
+            <li>Press save in the bottom right to save a guild's settings</li>
+          </ol>
+          <br />
+          Notifications: The bot will keep track of any roles in your server whose name starts with
+          <strong>arch-</strong> or <strong>wf-</strong>. The other part of the role name is what
+          the notification is for. For example, the role <i>arch-forma</i> will be mentioned if
+          something with the word <i>forma</i> pops up. If an message sent by webhook contains the
+          notification part of the name, it should be pinged. <br /><br />
+          <strong
+            >Servers only show up if you have administrator/manage server permissions/are owner and
+            the bot is also in the server.</strong
+          >
+          If you need any more help, you can join the support server through the Discord icon on the
+          top right. <br /><br />
+          You can use this button to clear the cached information. Try to use this only if guilds/
+          channels that should show up are not showing up.
+          <br /><br />
+          <div class="button is-danger" id="resetCache">
+            Reset Data
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-start">
+      <div class="navbar-brand">
+        <img src="" alt="Your Avatar" id="avatar" style="height:64px;display:none" />
+      </div>
+      <div class="navbar-item">
+        <div class="content" id="username" style="display:none"></div>
+      </div>
+    </div>
+    <div class="navbar-end" style="font-size:1.5em">
+      <div class="navbar-item">
+        <a href="https://discordapp.com/invite/Zct6VgD">
+          <i title="Join my server" class="fab fa-discord"></i>
+        </a>
+      </div>
+      <div class="navbar-item">
+        <a href="/arch">
+          <i title="Home" class="fas fa-home"></i>
+        </a>
+      </div>
+      <div class="navbar-item"></div>
+    </div>
+  </nav>
+  <div id="main">
+    <i>
+      Knowledge must be earned, Tenno. I will share what I know, but you must prove yourself
+      deserving.
+    </i>
+    <div id="leftPanel"></div>
+    <div id="rightPanel"></div>
+  </div>
+  <div id="scrollable">
+    <div id="help">
+      <i class="far fa-question-circle" style="float:right;margin:5px"></i>
+    </div>
+  </div>
+  <div id="bottomright">
+    <div class="button is-primary" disabled id="save" style="display:none">
+      Save
+    </div>
+  </div>
+</body>

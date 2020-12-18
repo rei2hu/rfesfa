@@ -1,0 +1,5 @@
+{
+  "FETCH_USER_GUILDS_ENDPOINT": "https://discordapp.com/api/users/@me/guilds",
+  "FETCH_USER_INFO_ENDPOINT": "https://discordapp.com/api/users/@me",
+  "FETCH_GUILD_CHANNELS_ENDPOINT": "https://discordapp.com/api/guilds/{{guildId}}/channels"
+}

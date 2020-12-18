@@ -1,0 +1,3 @@
+{
+  "FETCH_GUILD_ROLES_ENDPOINT": "https://discordapp.com/api/guilds/{{guildId}}/roles"
+}
